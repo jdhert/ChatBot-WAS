@@ -204,11 +204,3 @@ body {
     width: 20px;
     height: 20px;
 }
-
-.message-text {
-    font-size: 15px;
-    line-height: 1.6;
-    margin-bottom: 8px;
-    white-space: pre-wrap;
-    word-break: break-word;
-}
