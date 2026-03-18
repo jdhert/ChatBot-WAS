@@ -111,40 +111,18 @@ function sendMessage() {
 	        console.log("--- 서버에서 받은 데이터 ---");
             console.log("전체 응답:", data);
 
-			const answerText = data.generatedAnswer || data.message || '답변이 없습니다.';
-
-            let sccIdText = '';
-            if (Array.isArray(data.candidates) && data.candidates.length > 0) {
-                const sccIds = [...new Set(
-                    data.candidates
-                        .map(item => item.sccId)
-                        .filter(sccId => sccId !== null && sccId !== undefined && sccId !== '')
-                )];
-
-                if (sccIds.length > 0) {
-                    sccIdText = '\n\n[SCC ID 목록]\n' + sccIds.join('\n');
-                }
-            }
-
-            const serverResponse = answerText + sccIdText;
-
-            addMessage(serverResponse, false);
-
-            isTyping = false;
-            sendButton.disabled = false;
+	        const serverResponse = data.message; 
+	        
+	        addMessage(serverResponse, false); // 화면에 뿌리기
+	        
+	        isTyping = false;
+	        sendButton.disabled = false;
 	    },
 	    error: function() {
-			hideTypingIndicator();
-
-            console.log('--- 서버 통신 실패 ---');
-            console.log('status:', status);
-            console.log('error:', error);
-            console.log('responseText:', xhr.responseText);
-
-            addMessage('서버와의 통신에 실패했습니다.', false);
-
-            isTyping = false;
-            sendButton.disabled = false;
+	        hideTypingIndicator();
+	        addMessage("서버와의 통신에 실패했습니다.", false);
+	        isTyping = false;
+	        sendButton.disabled = false;
 	    }
 	});
 }
